@@ -78,7 +78,6 @@ node* randomTree()
 	}
 	return Root;
 }
-
 /*============================ex2===========================*/
 void deleteTree(node* root) 
 {
@@ -92,7 +91,18 @@ print all the nodes which are at distance ‘k’ from the root.
 For example: For Binary Tree on the right side, Following are the 
 nodes which should get printed for the below values of ‘k’*/
 {
-	// ADD YOUR CODE HERE
+	if(root == NULL)
+		return;
+	if(k==0)
+	{
+		printf("%d ",root->data);
+		return;
+	}
+	if(k>0)
+	{
+		printNodeAtDistance(root->left,k-1);
+		printNodeAtDistance(root->right,k-1);
+	}
 }
 
 /*============================ex4===========================*/
@@ -134,7 +144,19 @@ bool isFull(node* root)
 // 2. If the element hasn't son this is a full binary tree
 // 3. Browse the left and right side to see if it is a full binary tree
 {	
-	// ADD YOUR CODE HERE
+		if(root == NULL)
+			return true;
+		if (root->left != NULL && root->right != NULL)
+		{
+			return isFull(root->left)&&isFull(root->right);
+		}
+		if (root->left == NULL && root->right == NULL)
+		{
+			return true;
+		}
+
+		return false;
+
 }
 
 /*============================ex8===========================*/
