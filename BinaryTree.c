@@ -59,34 +59,35 @@ node* randomTree()
 /* function creating random binary tree */
 {
 	int RootNum = GetRandomNumberRoot();
-	if(RootNum == 0)
+	if(RootNum == 0) // if random says 0 → no tree, return NULL
 		return NULL;
-	node* Root = NewNode(GetRandomValueNode());
+	node* Root = NewNode(GetRandomValueNode());  // create root with random value
 	int SubRootnum = GetRandomNumberNode();
-	if(SubRootnum == 0)
+	if(SubRootnum == 0) // if random says 0 → tree has only root
 		return Root;
-	if(SubRootnum == 1)
+	if(SubRootnum == 1) // insert one random value into tree
 	{
 		randomInsertInto(Root,GetRandomValueNode());
 		return Root;
 	}
 	if(SubRootnum == 2)
 	{
+		 // insert random values into left and right subtrees
 		Root->left  = randomInsertInto(Root->left,GetRandomValueNode());
 		Root->right = randomInsertInto(Root->right,GetRandomValueNode());
 		return Root;
 	}
-	return Root;
+	return Root; // default return root
 }
 /*============================ex2===========================*/
 void deleteTree(node* root)
 {
-	if (root == NULL){// nothing to erase if null
+	if (root == NULL)// nothing to erase if null
           return;
-          }
-          deleteTree(root->left);//recursive call for deleting left root till null
-          deleteTree(root->right);//recursive call for deleting right root till null
-          free(root);//free root itself
+
+    deleteTree(root->left);//recursive call for deleting left root till null
+    deleteTree(root->right);//recursive call for deleting right root till null
+    free(root);//free root itself
 }
 
 /*============================ex3===========================*/
@@ -96,14 +97,14 @@ print all the nodes which are at distance ‘k’ from the root.
 For example: For Binary Tree on the right side, Following are the 
 nodes which should get printed for the below values of ‘k’*/
 {
-	if(root == NULL)
+	if(root == NULL)    // if tree is empty → nothing to print
 		return;
-	if(k==0)
+	if(k==0)     // if distance reached 0 → this node is exactly at distance
 	{
 		printf("%d ",root->data);
 		return;
 	}
-	if(k>0)
+	if(k>0)  // otherwise go deeper: reduce distance by 1
 	{
 		printNodeAtDistance(root->left,k-1);
 		printNodeAtDistance(root->right,k-1);
@@ -129,33 +130,44 @@ mirror tree recurses on right and vice-versa*/
 /*============================ex5===========================*/
 void preOrderTraversal(node* root)
 {
-	// ADD YOUR CODE HERE
+	if(root == NULL)
+		return;
+	printf("%d ", root->data);
+	preOrderTraversal(root->left);
+	preOrderTraversal(root->right);
 }
 
 void inOrderTraversal(node* root)
 {
-	// ADD YOUR CODE HERE
+	if(root == NULL)
+		return;
+	inOrderTraversal(root->left);
+	printf("%d ", root->data);
+	inOrderTraversal(root->right);
 }
 void postOrderTraversal(node* root)
 {
-	// ADD YOUR CODE HERE
+	if(root == NULL)
+		return;
+	postOrderTraversal(root->left);
+    postOrderTraversal(root->right);
+    printf("%d ", root->data);
 }
 
 /*============================ex6===========================*/
-node* insert(node* root, int data) {
+node* insert(node* root, int data)
+{
 // 1. If the tree is empty, return a new, single node
 // 2. Otherwise, recur down the tree
 // 3. return the (unchanged) node pointer
 
-	// ADD YOUR CODE HERE
- if (root==NULL)//if the given root is null insert the data to be the main root
+ 	if (root==NULL)//if the given root is null insert the data to be the main root
   		return NewNode(data);
- if (data < root->data){//if the inserted data smaller then the current data go left till its not
-   root->left = insert(root->left,data);
-   }
-   else if (data > root->data){//if the inserted data greater then the current data go right till its not
-     root->right = insert(root->right,data);
-   }
+ 	if (data < root->data)//if the inserted data smaller then the current data go left till its not
+   		root->left = insert(root->left,data);
+   	else if (data > root->data)//if the inserted data greater then the current data go right till its not
+     	root->right = insert(root->right,data);
+
    return root;
 }
 
@@ -183,28 +195,45 @@ bool isFull(node* root)
 /*============================ex8===========================*/
 void printLeaves(node* root)
 {
-	// ADD YOUR CODE HERE
-if (root == NULL)
-  return;
-if (root->left == NULL && root->right == NULL){//if it dosent have childerns print root
-  printf("%d ",root->data);
-}
-printLeaves(root->left);
-printLeaves(root->right);
+	if (root == NULL)
+  		return;
+	if (root->left == NULL && root->right == NULL)   //if it dosent have childerns print root
+	{
+  		printf("%d ",root->data);
+	}
+	printLeaves(root->left);
+	printLeaves(root->right);
 }
 
 /*============================ex9===========================*/
 int depth(node *root)
 {
-	// ADD YOUR CODE HERE
+	if(root == NULL)
+		return 0;
+	int LeftH = depth(root->left);
+	int RightH = depth(root->right);
+	if(LeftH>RightH)
+		return 1 + LeftH;
+	return 1+ RightH;
+
 }
 
 /*============================ex10===========================*/
 int levelStatistics(node* root, int level) 
 {
-	// ADD YOUR CODE HERE
+	if(level < 0)
+	{
+		printf("%s", "Not a valid level");
+		return 0;
+	}
+	if(root == NULL) 
+		return 0;
+	if(level==0)     
+	{
+		printf("%d ",root->data);
+		return 1;	
+	}
+	if(level>0) 
+		return levelStatistics(root->left,level-1)+levelStatistics(root->right,level-1);
+	return 0;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> ilay
