@@ -142,12 +142,21 @@ void postOrderTraversal(node* root)
 }
 
 /*============================ex6===========================*/
-node* insert(node* root, int data) 
+node* insert(node* root, int data) {
 // 1. If the tree is empty, return a new, single node
 // 2. Otherwise, recur down the tree
 // 3. return the (unchanged) node pointer
-{
+
 	// ADD YOUR CODE HERE
+ if (root==NULL)//if the given root is null insert the data to be the main root
+  		return NewNode(data);
+ if (data < root->data){//if the inserted data smaller then the current data go left till its not
+   root->left = insert(root->left,data);
+   }
+   else if (data > root->data){//if the inserted data greater then the current data go right till its not
+     root->right = insert(root->right,data);
+   }
+   return root;
 }
 
 /*============================ex7===========================*/
