@@ -17,7 +17,11 @@ struct Node {
 node* NewNode(int value);
 node* Left(node* root);
 node* Right(node* root);
+int GetRandomLR();
 node* randomInsertInto(node* root, int value) ;
+int GetRandomNumberRoot();
+int GetRandomNumberNode();
+int GetRandomValueNode();
 node* randomTree();
 void deleteTree(node* root) ;
 void printNodeAtDistance(node *root , int k);

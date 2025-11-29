@@ -17,12 +17,66 @@ node* Left(node* root) {
 node* Right(node* root) {
 	return root->right;
 }
-
+int GetRandomLR()
+{
+	return rand() % 2;
+}
+node* randomInsertInto(node* root, int value)
+{
+	if (root == NULL)
+		return NewNode(value);
+	int side = GetRandomLR();
+	if(side == 0)
+	{
+		if(root->left == NULL)
+			root->left = NewNode(value);
+		else
+			randomInsertInto(root->left,value);
+	}
+	else
+	{
+		if(root->right == NULL)
+			root->right= NewNode(value);
+		else
+			randomInsertInto(root->right,value);
+	}
+	return root;
+}
+int GetRandomNumberRoot()
+{
+	return rand() % 2;
+}
+int GetRandomNumberNode()
+{
+	return rand() % 3;
+}
+int GetRandomValueNode()
+{
+	return rand();
+}
 /*============================ex1===========================*/
 node* randomTree()
 /* function creating random binary tree */
 {
-	// ADD YOUR CODE HERE
+	int RootNum = GetRandomNumberRoot();
+	if(RootNum == 0)
+		return NULL;
+	node* Root = NewNode(GetRandomValueNode());
+	int SubRootnum = GetRandomNumberNode();
+	if(SubRootnum == 0)
+		return Root;
+	if(SubRootnum == 1)
+	{
+		randomInsertInto(Root,GetRandomValueNode());
+		return Root;
+	}
+	if(SubRootnum == 2)
+	{
+		Root->left  = randomInsertInto(Root->left,GetRandomValueNode());
+		Root->right = randomInsertInto(Root->right,GetRandomValueNode());
+		return Root;
+	}
+	return Root;
 }
 
 /*============================ex2===========================*/
