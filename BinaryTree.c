@@ -184,6 +184,13 @@ bool isFull(node* root)
 void printLeaves(node* root)
 {
 	// ADD YOUR CODE HERE
+if (root == NULL)
+  return;
+if (root->left == NULL && root->right == NULL){//if it dosent have childerns print root
+  printf("%d ",root->data);
+}
+printLeaves(root->left);
+printLeaves(root->right);
 }
 
 /*============================ex9===========================*/
@@ -197,3 +204,4 @@ int levelStatistics(node* root, int level)
 {
 	// ADD YOUR CODE HERE
 }
+
