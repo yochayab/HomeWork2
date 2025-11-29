@@ -79,9 +79,14 @@ node* randomTree()
 	return Root;
 }
 /*============================ex2===========================*/
-void deleteTree(node* root) 
+void deleteTree(node* root)
 {
-	// ADD YOUR CODE HERE
+	if (root == NULL){// nothing to erase if null
+          return;
+          }
+          deleteTree(root->left);//recursive call for deleting left root till null
+          deleteTree(root->right);//recursive call for deleting right root till null
+          free(root);//free root itself
 }
 
 /*============================ex3===========================*/
@@ -111,7 +116,14 @@ void mirrorify(node* root, node** mirror)
 It recurses on both the trees,but when original tree recurses on left,
 mirror tree recurses on right and vice-versa*/
 {
-	// ADD YOUR CODE HERE  
+	if (root == NULL){//if main root is null mirror will be null aswell
+          *mirror = NULL;
+          return;
+          }
+    *mirror =NewNode(root->data);
+    mirrorify(root->left,&((*mirror)->right));
+	mirrorify(root->right,&((*mirror)->left));
+
 }
 
 /*============================ex5===========================*/
