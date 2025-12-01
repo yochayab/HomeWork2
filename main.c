@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "BinaryTree.h"
+#include "BinaryTree.c"
 
 /* Helper: build example tree for mirror & traversals
    Structure (BST insert of: 5,3,6,2,4):

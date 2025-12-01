@@ -1,7 +1,7 @@
 #include"BinaryTree.h"
 
 /*=========================================================*/
-node* NewNode(int value) 
+node* NewNode(int value)
 /* Function that allocates a new node with the
 given data and NULL left and right pointers */
 {
@@ -31,53 +31,35 @@ node* randomInsertInto(node* root, int value)
 		if(root->left == NULL)
 			root->left = NewNode(value);
 		else
-			randomInsertInto(root->left,value);
+			root->left= randomInsertInto(root->left,value);
 	}
 	else
 	{
 		if(root->right == NULL)
 			root->right= NewNode(value);
 		else
-			randomInsertInto(root->right,value);
+			root->right= randomInsertInto(root->right,value);
 	}
 	return root;
 }
-int GetRandomNumberRoot()
-{
-	return rand() % 2;
-}
-int GetRandomNumberNode()
-{
-	return rand() % 3;
-}
 int GetRandomValueNode()
 {
-	return rand();
+	return rand()%100;
 }
 /*============================ex1===========================*/
 node* randomTree()
 /* function creating random binary tree */
 {
-	int RootNum = GetRandomNumberRoot();
-	if(RootNum == 0) // if random says 0 → no tree, return NULL
+	int n = rand() % 11;
+	if (n == 0)
 		return NULL;
-	node* Root = NewNode(GetRandomValueNode());  // create root with random value
-	int SubRootnum = GetRandomNumberNode();
-	if(SubRootnum == 0) // if random says 0 → tree has only root
-		return Root;
-	if(SubRootnum == 1) // insert one random value into tree
+	node* root = NULL;
+	for (int i = 0; i < n; i++)
 	{
-		randomInsertInto(Root,GetRandomValueNode());
-		return Root;
+		int value = GetRandomValueNode();
+		root = randomInsertInto(root, value);
 	}
-	if(SubRootnum == 2)
-	{
-		 // insert random values into left and right subtrees
-		Root->left  = randomInsertInto(Root->left,GetRandomValueNode());
-		Root->right = randomInsertInto(Root->right,GetRandomValueNode());
-		return Root;
-	}
-	return Root; // default return root
+	return root;
 }
 /*============================ex2===========================*/
 void deleteTree(node* root)
@@ -92,9 +74,9 @@ void deleteTree(node* root)
 
 /*============================ex3===========================*/
 void printNodeAtDistance(node *root , int k)
-/*Given a Binary Tree and a positive integer ‘k’, write code which will 
+/*Given a Binary Tree and a positive integer ‘k’, write code which will
 print all the nodes which are at distance ‘k’ from the root.
-For example: For Binary Tree on the right side, Following are the 
+For example: For Binary Tree on the right side, Following are the
 nodes which should get printed for the below values of ‘k’*/
 {
 	if(root == NULL)    // if tree is empty → nothing to print
@@ -172,11 +154,11 @@ node* insert(node* root, int data)
 }
 
 /*============================ex7===========================*/
-bool isFull(node* root) 
+bool isFull(node* root)
 // 1. If root = NULL this a full binary tree
 // 2. If the element hasn't son this is a full binary tree
 // 3. Browse the left and right side to see if it is a full binary tree
-{	
+{
 		if(root == NULL)
 			return true;
 		if (root->left != NULL && root->right != NULL)
@@ -219,21 +201,21 @@ int depth(node *root)
 }
 
 /*============================ex10===========================*/
-int levelStatistics(node* root, int level) 
+int levelStatistics(node* root, int level)
 {
 	if(level < 0)
 	{
 		printf("%s", "Not a valid level");
 		return 0;
 	}
-	if(root == NULL) 
+	if(root == NULL)
 		return 0;
-	if(level==0)     
+	if(level==0)
 	{
 		printf("%d ",root->data);
-		return 1;	
+		return 1;
 	}
-	if(level>0) 
+	if(level>0)
 		return levelStatistics(root->left,level-1)+levelStatistics(root->right,level-1);
 	return 0;
 }
