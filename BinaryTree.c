@@ -208,6 +208,11 @@ int levelStatistics(node* root, int level)
 		printf("%s", "Not a valid level");
 		return 0;
 	}
+	int h = depth(root);// to check level with root depth
+	if (level >= h) {
+		printf("Not a valid level");
+		return 0;
+	}
 	if(root == NULL)
 		return 0;
 	if(level==0)
